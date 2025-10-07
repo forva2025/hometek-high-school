@@ -102,7 +102,7 @@ function initScrollAnimations() {
     const animatedElements = document.querySelectorAll('.fade-in, .fade-in-up');
     animatedElements.forEach((el, index) => {
         // Add stagger delay
-        el.style.transitionDelay = `${index * 0.1}s`;
+        // el.style.transitionDelay = `${index * 0.1}s`;
         observer.observe(el);
     });
 
@@ -417,75 +417,75 @@ document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('.btn');
     
     buttons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-        });
+        // button.addEventListener('mouseenter', function() {
+        //     this.style.transform = 'translateY(-2px)';
+        // });
         
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
+        // button.addEventListener('mouseleave', function() {
+        //     this.style.transform = 'translateY(0)';
+        // });
         
-        // Ripple effect
-        button.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
+        // Ripple effect - disabled
+        // button.addEventListener('click', function(e) {
+        //     const ripple = document.createElement('span');
+        //     const rect = this.getBoundingClientRect();
+        //     const size = Math.max(rect.width, rect.height);
+        //     const x = e.clientX - rect.left - size / 2;
+        //     const y = e.clientY - rect.top - size / 2;
             
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
+        //     ripple.style.width = ripple.style.height = size + 'px';
+        //     ripple.style.left = x + 'px';
+        //     ripple.style.top = y + 'px';
+        //     ripple.classList.add('ripple');
             
-            // Add ripple styles
-            Object.assign(ripple.style, {
-                position: 'absolute',
-                borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.4)',
-                transform: 'scale(0)',
-                animation: 'ripple-animation 0.6s linear',
-                pointerEvents: 'none'
-            });
+        //     // Add ripple styles
+        //     Object.assign(ripple.style, {
+        //         position: 'absolute',
+        //         borderRadius: '50%',
+        //         background: 'rgba(255, 255, 255, 0.4)',
+        //         transform: 'scale(0)',
+        //         animation: 'ripple-animation 0.6s linear',
+        //         pointerEvents: 'none'
+        //     });
             
-            this.appendChild(ripple);
+        //     this.appendChild(ripple);
             
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
+        //     setTimeout(() => {
+        //         ripple.remove();
+        //     }, 600);
+        // });
     });
     
-    // Add ripple animation if not exists
-    if (!document.querySelector('#ripple-styles')) {
-        const style = document.createElement('style');
-        style.id = 'ripple-styles';
-        style.textContent = `
-            @keyframes ripple-animation {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
+    // Add ripple animation if not exists - disabled
+    // if (!document.querySelector('#ripple-styles')) {
+    //     const style = document.createElement('style');
+    //     style.id = 'ripple-styles';
+    //     style.textContent = `
+    //         @keyframes ripple-animation {
+    //             to {
+    //                 transform: scale(4);
+    //                 opacity: 0;
+    //             }
+    //         }
+    //     `;
+    //     document.head.appendChild(style);
+    // }
 });
 
 // Card hover effects
 document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.program-card, .facility-card, .news-card, .activity-card');
     
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.02)';
-            this.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-        });
+    // cards.forEach(card => {
+    //     card.addEventListener('mouseenter', function() {
+    //         this.style.transform = 'translateY(-5px) scale(1.02)';
+    //         this.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+    //     });
         
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
+    //     card.addEventListener('mouseleave', function() {
+    //         this.style.transform = 'translateY(0) scale(1)';
+    //     });
+    // });
 });
 
 // Performance optimizations
@@ -526,7 +526,7 @@ window.addEventListener('scroll', throttledScrollHandler, { passive: true });
 // Preload critical images for better performance
 function preloadImages() {
     const criticalImages = [
-        'https://pplx-res.cloudinary.com/image/upload/v1759832523/pplx_project_search_images/197d81816681f974f7366362408f066a976ea91f.png'
+        'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=1920&h=1080'
     ];
     
     criticalImages.forEach(src => {
@@ -551,11 +551,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         img.addEventListener('load', function() {
             this.style.opacity = '1';
-            this.style.transition = 'opacity 0.3s ease';
+            // this.style.transition = 'opacity 0.3s ease';
         });
         
         // Set initial opacity for fade-in effect
-        img.style.opacity = '0';
+        img.style.opacity = '1';
     });
 });
 
