@@ -52,6 +52,31 @@
             40% {transform: translateY(-20px);}
             60% {transform: translateY(-10px);}
         }
+        
+        /* Mobile menu styles */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            transform: translateY(-10px);
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        #mobile-menu.show {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Ensure mobile menu is properly positioned */
+        @media (max-width: 768px) {
+            #mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans antialiased">
@@ -76,10 +101,21 @@
                     </div>
                 </div>
                 <div class="-mr-2 flex md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none">
-                        <i data-feather="menu"></i>
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none">
+                        <i data-feather="menu" id="menu-icon"></i>
                     </button>
                 </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
+                <a href="#" class="block px-3 py-2 text-base font-medium text-primary hover:text-secondary">Home</a>
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary">About</a>
+                <a href="#academics" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary">Academics</a>
+                <a href="#admissions" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary">Admissions</a>
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary">Contact</a>
+                <a href="#" class="block px-3 py-2 text-base font-medium bg-primary text-white rounded-md hover:bg-accent">Apply Now</a>
             </div>
         </div>
     </nav>
@@ -1095,6 +1131,54 @@
         // Animate counters
         document.addEventListener('DOMContentLoaded', function() {
             feather.replace();
+            
+            // Mobile menu functionality
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            // Toggle mobile menu
+            mobileMenuButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (mobileMenu.classList.contains('show')) {
+                    mobileMenu.classList.remove('show');
+                    menuIcon.setAttribute('data-feather', 'menu');
+                } else {
+                    mobileMenu.classList.add('show');
+                    menuIcon.setAttribute('data-feather', 'x');
+                }
+                feather.replace(); // Re-render icons
+            });
+            
+            // Close mobile menu when clicking on a link
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('show');
+                    menuIcon.setAttribute('data-feather', 'menu');
+                    feather.replace();
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.remove('show');
+                    menuIcon.setAttribute('data-feather', 'menu');
+                    feather.replace();
+                }
+            });
+            
+            // Close mobile menu on window resize (if it becomes desktop view)
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.remove('show');
+                    menuIcon.setAttribute('data-feather', 'menu');
+                    feather.replace();
+                }
+            });
             
             // Counter animation with Intersection Observer
             const counters = document.querySelectorAll('[data-counter]');
